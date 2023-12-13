@@ -1,22 +1,24 @@
-def hello():
-    return "How can I help you?"
+def parse_input(user_input):
+    cmd, *args = user_input.split()
+    cmd = cmd.strip().lower()
+    return cmd, args
 
 def add_contact(contacts, username, phone):
     contacts[username] = phone
-    return f"Contact {username} with phone number {phone} added."
+    return "Contact added."
 
 def change_contact(contacts, username, new_phone):
     if username in contacts:
         contacts[username] = new_phone
-        return f"Phone number for {username} updated to {new_phone}."
+        return "Contact updated."
     else:
-        return f"Contact with name {username} not found."
+        return "Contact not found."
 
 def show_phone(contacts, username):
     if username in contacts:
         return f"Phone number for {username}: {contacts[username]}"
     else:
-        return f"Contact with name {username} not found."
+        return "Contact not found."
 
 def show_all(contacts):
     if not contacts:
@@ -31,13 +33,13 @@ def main():
 
     while True:
         user_input = input("Enter a command: ").strip().lower()
-        command, *args = user_input.split()
+        command, args = parse_input(user_input)
 
         if command in ["close", "exit"]:
             print("Good bye!")
             break
         elif command == "hello":
-            print(hello())
+            print("How can I help you?")
         elif command == "add" and len(args) == 2:
             username, phone = args
             print(add_contact(contacts, username, phone))
@@ -54,3 +56,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
